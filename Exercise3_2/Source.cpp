@@ -3,25 +3,11 @@
 #include <stdlib.h>
 #include <RaspberryDLL.h>
 
-int lightsCountdown[3];
-
-int lightsCheck()
+int lightOff()
 {
-	for (int light = 0; light < 3; light++)
-	{
-		if (lightsCountdown[light] == 0)
-		{
-			ledOff(light + 4);
-		}
-		else if (lightsCountdown[light] == 1)
-		{
-			ledOn(light + 4);
-		}
-		else
-		{
-			lightsCountdown[light]--;
-		}
-	}
+	ledOff(4);
+	ledOff(5);
+	ledOff(6);
 
 	return 0;
 }
@@ -30,15 +16,27 @@ int setLightState(bool green)
 {
 	if (green)
 	{
-		lightsCountdown[0] = 10;
-		lightsCountdown[1] = 1;
-		lightsCountdown[2] = 1;
+		lightOff();
+
+		ledOn(5);
+		ledOn(6);
+
+		Wait(1000);
+
+		ledOff(6);
+		ledOff(5);
+		ledOn(4);
 	}
 	else
 	{
-		lightsCountdown[0] = 0;
-		lightsCountdown[1] = 1;
-		lightsCountdown[2] = 20;
+		lightOff();
+
+		ledOn(5);
+
+		Wait(4000);
+
+		ledOff(5);
+		ledOn(6);
 	}
 
 	return 0;
@@ -56,12 +54,9 @@ int main(void)
 
 	setLightState(true);
 
-	while (true)
-	{
+	Wait(10000);
 
-		lightsCheck();
-		Wait(1);
-	}
+	setLightState(false);
 
 	return 0;
 }
