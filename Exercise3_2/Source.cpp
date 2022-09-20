@@ -62,7 +62,8 @@ int main(void)
 
 	while (true)
 	{
-		if (keyPressed(P2))
+		// Switch to red
+		if ((keyPressed(P2) || getIntensity() > 50) && lightState)
 		{
 			lightState = setLightState(false);
 		}
