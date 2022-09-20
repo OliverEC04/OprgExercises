@@ -1,0 +1,12 @@
+Plan for OPRG Exercise 1-2
+
+double sideA
+double sideB
+double sideC
+
+Enter sideA
+Enter sideB
+
+sideC = sqrt(sideA^2 + sideB^2)
+
+print(Length of side C is {sideC})
