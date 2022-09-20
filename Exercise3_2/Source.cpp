@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <RaspberryDLL.h>
 
+bool lightState;
+
 int lightOff()
 {
 	ledOff(4);
@@ -12,9 +14,9 @@ int lightOff()
 	return 0;
 }
 
-int setLightState(bool green)
+bool setLightState(bool state)
 {
-	if (green)
+	if (state && state != lightState)
 	{
 		lightOff();
 
@@ -27,7 +29,7 @@ int setLightState(bool green)
 		ledOff(5);
 		ledOn(4);
 	}
-	else
+	else if (state != lightState)
 	{
 		lightOff();
 
@@ -38,8 +40,12 @@ int setLightState(bool green)
 		ledOff(5);
 		ledOn(6);
 	}
+	else
+	{
+		printf_s("lightState was set to current state \n ");
+	}
 
-	return 0;
+	return state;
 }
 
 int main(void)
@@ -52,11 +58,15 @@ int main(void)
 
 	printf("Connected to Raspberry Pi\n");
 
-	setLightState(true);
+	lightState = setLightState(true);
 
-	Wait(10000);
-
-	setLightState(false);
+	while (true)
+	{
+		if (keyPressed(P2))
+		{
+			lightState = setLightState(false);
+		}
+	}
 
 	return 0;
 }
