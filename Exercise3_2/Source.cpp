@@ -4,6 +4,7 @@
 #include <RaspberryDLL.h>
 
 bool lightState;
+int greenCountdown;
 
 int lightOff()
 {
@@ -63,10 +64,25 @@ int main(void)
 	while (true)
 	{
 		// Switch to red
-		if ((keyPressed(P2) || getIntensity() > 50) && lightState)
+		if (keyPressed(P2) || getIntensity() > 50)
 		{
-			lightState = setLightState(false);
+			if (lightState)
+			{
+				lightState = setLightState(false);
+			}
+
+			greenCountdown = 100;
 		}
+		else if (greenCountdown > 0)
+		{
+			greenCountdown--;
+		}
+		else if (greenCountdown == 0 && !lightState)
+		{
+			lightState = setLightState(true);
+		}
+
+		Wait(10);
 	}
 
 	return 0;
