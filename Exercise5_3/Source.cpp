@@ -12,7 +12,18 @@ int main(void)
 	}
 
 	printf("Connected to Raspberry Pi\n");
-	// To do your code
+	
+	for (int i = 1; i < 7; i++)
+	{
+		ledOn(i);
+	}
+
+	Wait(5000);
+
+	for (int i = 1; i < 7; i++)
+	{
+		ledOff(i);
+	}
 
 	return 0;
 }
