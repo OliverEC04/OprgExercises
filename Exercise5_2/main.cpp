@@ -7,32 +7,26 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 int myArray[ARR_SIZE];
-int myBufArr[ARR_SIZE];
 char myString[10000];
 
-void bubbleSort(int *bufArr, int array[], int arrSize)
+int * bubbleSort(int array[], int arrSize)
 {
-	bufArr = array;
-
 	for (int i = 0; i < arrSize; i++)
 	{
 		for (int j = 0; j < arrSize; j++)
 		{
-			int a = bufArr[j];
-			int b = bufArr[j + 1];
+			int a = array[j];
+			int b = array[j + 1];
 
 			if (a > b)
 			{
-				bufArr[j] = b;
-				bufArr[j + 1] = a;
+				array[j] = b;
+				array[j + 1] = a;
 			}
-			printf_s(" - %d \n", bufArr[j]);
 		}
-
-		printf_s("-----\n");
 	}
 
-	//*bufArr = bufArr;
+	return array;
 }
 
 void main()
@@ -47,13 +41,16 @@ void main()
 		strcat_s(myString, numStr);
 	}
 
+	printf_s("Unsorted array:\n");
 	printf_s(myString);
-	printf_s("\n");
+	printf_s("\n\nSorted array:\n");
 
-	bubbleSort(myBufArr, myArray, ARR_SIZE);
+	int *myArraySorted = bubbleSort(myArray, ARR_SIZE);
 
 	for (int i = 0; i < ARR_SIZE; i++)
 	{
-		printf_s("%d ", myBufArr[i]);
+		printf_s("%d ", myArraySorted[i]);
 	}
+
+	printf_s("\n\n");
 }
